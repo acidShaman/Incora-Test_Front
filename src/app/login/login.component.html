@@ -1,0 +1,24 @@
+<mat-card class="login_card">
+  <mat-card-header>
+    <mat-card-title>
+      Login
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" formControlName="username">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+    </form>
+    <mat-error *ngIf="loginForm.hasError('invalid_credentials')">Wrong username or password!</mat-error>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="login()" [disabled]="loginForm.invalid">Login</button>
+  </mat-card-actions>
+</mat-card>

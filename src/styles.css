@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.login_card {
+  width: 250px;
+  height: max-content;
+  margin: 15% auto;
+  background: blanchedalmond;
+}
+.login_card mat-card-content mat-form-field {
+  width: 100%;
+}
+.login_card mat-card-actions {
+  display: flex;
+}
+.login_card mat-card-actions button{
+  margin: 0 auto !important;
+}
+
+.article_card {
+  margin: 0.5rem 0;
+  cursor: pointer;
+  background: white;
+}
+.article_card:hover {
+  background: antiquewhite;
+}

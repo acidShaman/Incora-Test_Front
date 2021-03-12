@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <span>Feed Page</span>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+<ng-container *ngIf="feed">
+  <mat-card class="article_card" *ngFor="let article of feed.rss.channel[0].item" (click)="openWindow(article.link[0])">
+    <mat-card-header>
+      <mat-card-title>{{article.title[0]}}</mat-card-title>
+      <mat-card-subtitle>{{article.pubDate[0]}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</ng-container>
