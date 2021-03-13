@@ -1,4 +1,6 @@
 # IncoraTest
+Run 'npm install' to install all required packages!
+Run 'ng serve' to start project!
 
 **# Login credentials **
 users = [
