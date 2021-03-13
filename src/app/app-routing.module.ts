@@ -9,9 +9,10 @@ import {ArticlesComponent} from './articles/articles.component';
 import {ArticleComponent} from './article/article.component';
 import {ArticleResolverService} from './article/article-resolver.service';
 import {AuthGuard} from './shared/auth.guard';
+import {AppComponent} from './app.component';
 
 const routes: Routes = [
-
+  {path: '', component: AppComponent},
   {path: 'login', component: LoginComponent},
   {path: 'feed', component: FeedComponent, canActivate: [AuthGuard], resolve: {feed: FeedResolverService}},
   {path: 'feed/:id/articles', component: ArticlesComponent, canActivate: [AuthGuard]},
