@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <span>{{feedData.json.rss.channel[0].title[0]}}</span>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<ng-container *ngIf="feedData">
+  <mat-card class="article_card" *ngFor="let article of feedData.json.rss.channel[0].item" routerLink="./{{feedData.json.rss.channel[0].item.indexOf(article)}}" [state]="article">
+    <mat-card-header>
+      <mat-card-title>{{article.title[0]}}</mat-card-title>
+      <mat-card-subtitle>{{article.pubDate[0]}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</ng-container>

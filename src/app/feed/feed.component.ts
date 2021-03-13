@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import * as xml2js from 'xml2js';
-import {throwError} from 'rxjs';
+import {FeedService} from '../services/feed.service';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {CreateFeedComponent} from '../create-feed/create-feed.component';
 
 @Component({
   selector: 'app-feed',
@@ -10,11 +12,19 @@ import {throwError} from 'rxjs';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  feed: any;
+  feed: any[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService, private router: Router) {
-    this.feed = this.parseXml(this.activatedRoute.snapshot.data.feed);
-    console.log(this.feed);
+  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService,
+              private router: Router, private feedService: FeedService, private dialog: MatDialog,
+              ) {
+
+    this.activatedRoute.snapshot.data.feed.forEach((value) => {
+      const json = this.parseXml(value.data);
+      if (json.rss) {
+        this.feed.push({id: value.id, json, link: value.link});
+      }
+      console.log('Feed', this.feed);
+    });
   }
 
   private parseXml(xml): any {
@@ -34,7 +44,36 @@ export class FeedComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
-  openWindow(link: string): void {
-    window.open(link, '_blank');
+  deleteFeed(feedItem: any): void {
+    this.feedService.deleteFeed(feedItem.id).subscribe(data => console.log(data));
+    this.feed = this.feed.filter(item => item.id !== feedItem.id);
+  }
+
+  createFeed(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.width = '400px';
+
+    const dialogRef = this.dialog.open(CreateFeedComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        console.log('Done!');
+        let rawFeed;
+        this.feedService.getFeed().subscribe(feedList => {
+          rawFeed = feedList;
+          this.feed = [];
+          rawFeed.forEach(feed => {
+            const json = this.parseXml(feed.data);
+            if (json.rss) {
+              this.feed.push({id: feed.id, json, link: feed.link});
+            }
+            console.log('Feed', this.feed);
+          });
+        });
+      }
+    });
   }
 }

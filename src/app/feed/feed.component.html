@@ -1,12 +1,21 @@
 <mat-toolbar color="primary">
   <span>Feed Page</span>
-  <button mat-button (click)="logout()">Logout</button>
+  <button mat-raised-button color="accent" (click)="createFeed()">Add new Feed</button>
+  <button  color="warn"  mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 <ng-container *ngIf="feed">
-  <mat-card class="article_card" *ngFor="let article of feed.rss.channel[0].item" (click)="openWindow(article.link[0])">
-    <mat-card-header>
-      <mat-card-title>{{article.title[0]}}</mat-card-title>
-      <mat-card-subtitle>{{article.pubDate[0]}}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+  <ng-container *ngFor="let feedItem of feed">
+    <mat-card class="article_card" *ngIf="feedItem">
+      <mat-card-header routerLink="{{feedItem.id}}/articles" [state]="feedItem">
+        <mat-card-title>{{feedItem.json.rss.channel[0].title[0]}}</mat-card-title>
+        <mat-card-subtitle>{{feedItem.json.rss.channel[0].description[0]}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-raised-button color="warn" (click)="deleteFeed(feedItem)">
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
 </ng-container>

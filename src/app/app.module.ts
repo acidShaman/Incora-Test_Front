@@ -13,12 +13,20 @@ import {MatButtonModule} from '@angular/material/button';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { ArticlesComponent } from './articles/articles.component';
+import { ArticleComponent } from './article/article.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { CreateFeedComponent } from './create-feed/create-feed.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    FeedComponent
+    FeedComponent,
+    ArticlesComponent,
+    ArticleComponent,
+    CreateFeedComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +39,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     ReactiveFormsModule,
     HttpClientModule,
     MatToolbarModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

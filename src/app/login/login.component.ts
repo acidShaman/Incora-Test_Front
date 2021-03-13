@@ -21,8 +21,13 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.auth.login(this.loginForm.value).subscribe( value =>
-      value[0] === 'Logged In' ? this.router.navigate(['feed']) : this.loginForm.setErrors({invalid_credentials: true}),
+      value[0] === 'Logged In' ? this.confirmLoginAndNavigate() : this.loginForm.setErrors({invalid_credentials: true}),
       error => this.loginForm.setErrors({invalid_credentials: true}));
     console.log(this.loginForm.value);
+  }
+
+  confirmLoginAndNavigate(): void {
+    this.auth.$isLoggedIn.next(true);
+    this.router.navigate(['feed']);
   }
 }
