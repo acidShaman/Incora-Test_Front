@@ -1,4 +1,15 @@
 # IncoraTest
+Run 'npm install' to install all required packages!
+Run 'ng serve' to start project!
+
+**# Login credentials **
+users = [
+    {'username': 'andrew', 'password': 'motruk'},
+    {'username': 'john', 'password': 'doe'},
+]
+
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
 
